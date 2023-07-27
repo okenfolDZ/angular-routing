@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {TeamService} from "../../services/team.service";
+import {ActivatedRoute} from "@angular/router";
+import {Team} from "../../models/team.model";
 
 @Component({
   selector: 'app-team-details',
@@ -7,4 +10,12 @@ import { Component } from '@angular/core';
 })
 export class TeamDetailsComponent {
 
+  team!: Team;
+  constructor(private teamService: TeamService, private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.params.subscribe(params => {
+      const teamId = params['id'];
+      this.team = this.teamService.teams[teamId];
+
+    })
+  }
 }
